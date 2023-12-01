@@ -1,5 +1,11 @@
 package com.example.bluest;
 
+import static android.content.Intent.getIntent;
+
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +13,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,11 +63,31 @@ public class home extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    private Drawable getDrawableWithRadius() {
 
+        GradientDrawable gradientDrawable   =   new GradientDrawable();
+        gradientDrawable.setCornerRadii(new float[]{20, 20, 20, 20, 20, 20, 20, 20});
+//        gradientDrawable.setColor(Color.RED);
+        return gradientDrawable;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        Button button = (Button) view.findViewById(R.id.bukamaps);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(),MapsActivity.class));
+            }
+        });
+//        TextView nama =getActivity().findViewById(R.id.nama);
+//        LinearLayout layout =getActivity().findViewById(R.id.linear);
+//        layout.setBackground(getDrawableWithRadius());
+//
+//        String user = getActivity().getIntent().getStringExtra("user");
+//        nama.setText(user+", Mau Kemana Hari ini?");
+        return view;
     }
+
 }

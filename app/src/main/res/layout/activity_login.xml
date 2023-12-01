@@ -24,7 +24,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="164dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="24dp"
         android:src="@drawable/element2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -33,7 +33,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="44dp"
-        android:layout_marginBottom="108dp"
+        android:layout_marginBottom="52dp"
         android:src="@drawable/element3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -88,8 +88,10 @@
             android:id="@+id/loginUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:drawableLeft="@drawable/baseline_person_24"
             android:drawablePadding="10dp"
+            android:textColorHint="#99000000"
             android:hint="Username" />
         <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
@@ -105,6 +107,8 @@
             android:id="@+id/loginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="#99000000"
+            android:textColor="@color/black"
             android:drawableLeft="@drawable/baseline_lock_24"
             android:drawablePadding="10dp"
             android:hint="Password" />

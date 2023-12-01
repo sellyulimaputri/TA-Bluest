@@ -42,8 +42,8 @@ public class login extends AppCompatActivity {
                     Boolean checkPassword = databaseHelper.checkPassword(user,pass);
                     if (checkPassword==true){
                         Toast.makeText(login.this, "Login Sukses!", Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(login.this,MainActivity.class);
-                        intent.putExtra("user", user);
+                        Intent intent=new Intent(login.this, MainActivity.class);
+//                        intent.putExtra("user", user);
                         startActivity(intent);
                     }else {
                         Toast.makeText(login.this, "Login Gagal, Kesalahan Password/Username!", Toast.LENGTH_SHORT).show();

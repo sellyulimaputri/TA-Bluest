@@ -9,6 +9,26 @@
     tools:context=".register">
 
     <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="52dp"
+        android:src="@drawable/element3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="164dp"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/element2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="24dp"
@@ -20,24 +40,6 @@
         app:layout_constraintVertical_bias="0.089" />
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="164dp"
-        android:layout_marginBottom="80dp"
-        android:src="@drawable/element2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginBottom="108dp"
-        android:src="@drawable/element3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="330dp"
@@ -46,10 +48,10 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="350dp"
+        android:layout_height="297dp"
         android:layout_alignParentTop="true"
-        android:src="@drawable/loginn"
+        android:src="@drawable/register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -79,6 +81,8 @@
         <EditText
             android:id="@+id/registerUsername"
             android:layout_width="match_parent"
+            android:textColorHint="#99000000"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/baseline_person_24"
             android:drawablePadding="10dp"
@@ -87,6 +91,8 @@
         <EditText
             android:id="@+id/registerPassword"
             android:layout_width="match_parent"
+            android:textColorHint="#99000000"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/baseline_lock_24"
             android:drawablePadding="10dp"
@@ -95,10 +101,12 @@
         <EditText
             android:id="@+id/registerConfirmPassword"
             android:layout_width="match_parent"
+            android:textColorHint="#99000000"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/baseline_lock_24"
+            android:drawableLeft="@drawable/baseline_lock_person_24"
             android:drawablePadding="10dp"
-            android:hint="Password" />
+            android:hint="Confirm Password" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
