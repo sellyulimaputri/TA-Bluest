@@ -1,6 +1,8 @@
 package com.example.bluest;
 
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -11,15 +13,23 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.AutocompletePrediction;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,6 +39,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.bluest.databinding.ActivityMapsBinding;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GetAddressTask.OnTaskCompleted {
@@ -38,15 +49,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     FusedLocationProviderClient fusedLocationProviderClient;
     static final int REQUEST_LOCATION_PERMISSION=1;
     private TextView locationTextView;
-//    private SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        searchView= findViewById(R.id.cari);
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        locationTextView=findViewById(R.id.titik);
         fusedLocationProviderClient= LocationServices
                 .getFusedLocationProviderClient(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -67,8 +75,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                    }
 //                    Address address=addressList.get(0);
 //                    LatLng latLng=new LatLng(address.getLatitude(),address.getLongitude());
-//                    mMap.addMarker(new MarkerOptions().position(latLng).title(location));
-//                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
+////                    mMap.addMarker(new MarkerOptions().position(latLng).title(location));
+////                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
 //                }
 //
 //
@@ -80,8 +88,49 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                return false;
 //            }
 //        });
-        mapFragment.getMapAsync(this);
 
+        mapFragment.getMapAsync(this);
+//        AutoCompleteTextView autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
+//        Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
+//
+//        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
+//        AutocompletePredictionsRequest request = AutocompletePredictionsRequest.builder()
+//                .setTypeFilter(TypeFilter.ADDRESS)
+//                .setSessionToken(token)
+//                .setQuery(query) // query dari AutoCompleteTextView
+//                .build();
+//
+//        PlacesClient placesClient = Places.createClient(this);
+//        placesClient.findAutocompletePredictions(request).addOnSuccessListener((response) -> {
+//            // Handle hasil pencarian di sini
+//        }).addOnFailureListener((exception) -> {
+//            if (exception instanceof ApiException) {
+//                ApiException apiException = (ApiException) exception;
+//                Log.e(TAG, "Place not found: " + apiException.getStatusCode());
+//            }
+//        });
+
+// Menangani pemilihan lokasi
+//        autoCompleteTextView.setOnItemClickListener((adapterView, view, position, id) -> {
+//            AutocompletePrediction item = adapter.getItem(position);
+//            if (item != null) {
+//                String placeId = item.getPlaceId();
+//                List<Place.Field> placeFields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.NAME);
+//
+//                FetchPlaceRequest request = FetchPlaceRequest.builder(placeId, placeFields).build();
+//                placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
+//                    Place place = response.getPlace();
+//                    LatLng latLng = place.getLatLng();
+//
+//                    // Tambahkan marker atau geser kamera ke lokasi terpilih di peta
+//                }).addOnFailureListener((exception) -> {
+//                    if (exception instanceof ApiException) {
+//                        ApiException apiException = (ApiException) exception;
+//                        Log.e(TAG, "Place not found: " + apiException.getStatusCode());
+//                    }
+//                });
+//            }
+//        });
     }
 
     /**
@@ -166,7 +215,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     @Override
     public void onTaskCompleted(String result) {
-        locationTextView.setText("Alamat:"+result);
+        locationTextView.setText("Alamat : "+result);
     }
 
     //rute!
