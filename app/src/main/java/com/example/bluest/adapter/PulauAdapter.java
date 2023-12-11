@@ -11,50 +11,50 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bluest.R;
 import com.example.bluest.data.Place;
-import com.example.bluest.data.pulau;
+import com.example.bluest.data.Pulau;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class PulauAdapter extends RecyclerView.Adapter<PulauAdapter.PulauViewHolder>{
-    private List<pulau> pulauList;
+public class PulauAdapter extends RecyclerView.Adapter<PulauAdapter.PulauViewHolder> {
+    private List<Pulau> pulauList;
+    public interface OnItemClickListener {
+        void onItemClick(Pulau pulau);
+    }
+    private PulauAdapter.OnItemClickListener onItemClickListener;
 
-
-    public PulauAdapter(List<pulau> pulauList) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+    public PulauAdapter(List<Pulau> pulauList) {
         this.pulauList = pulauList;
     }
     @NonNull
     @Override
-    public PulauViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PulauAdapter.PulauViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pulau, parent, false);
         return new PulauViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PulauViewHolder holder, int position) {
-        pulau pulau = pulauList.get(position);
-
-        // Set data ke tampilan holder
-//        holder.textViewFoto.setText(place.foto);
-        holder.textViewName.setText(pulau.nama);
-
-        // Load gambar menggunakan Picasso atau metode lainnya
-        Picasso.get().load(pulau.foto).into(holder.imageViewPhoto);
-
+    public void onBindViewHolder(@NonNull PulauAdapter.PulauViewHolder holder, int position) {
+        Pulau pulau = pulauList.get(position);
+        holder.textPulau.setText(pulau.nama);
+        Picasso.get().load(pulau.foto).into(holder.imagePulau);
     }
 
     @Override
     public int getItemCount() {
         return pulauList.size();
     }
-    public static class PulauViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewName;
-        ImageView imageViewPhoto;
 
+    public class PulauViewHolder extends RecyclerView.ViewHolder {
+        TextView textPulau;
+        ImageView imagePulau;
         public PulauViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.textViewName);
-            imageViewPhoto = itemView.findViewById(R.id.imageViewPhoto);
+            textPulau = itemView.findViewById(R.id.textPulau);
+            imagePulau = itemView.findViewById(R.id.imagePulau);
         }
     }
 }

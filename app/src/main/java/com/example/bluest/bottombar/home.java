@@ -21,7 +21,7 @@ import com.example.bluest.adapter.PulauAdapter;
 import com.example.bluest.data.Place;
 import com.example.bluest.adapter.PlacesAdapter;
 import com.example.bluest.R;
-import com.example.bluest.data.pulau;
+import com.example.bluest.data.Pulau;
 import com.example.bluest.maps.WisataMaps;
 
 import org.json.JSONException;
@@ -83,12 +83,13 @@ public class home extends Fragment {
 //        gradientDrawable.setColor(Color.RED);
         return gradientDrawable;
     }
-    private List<pulau> pulauList;
-    private RecyclerView recyclerViewPulau;
-    private PulauAdapter pulauAdapter;
+
     private List<Place> placeList;
     private RecyclerView recyclerView;
     private PlacesAdapter placesAdapter;
+    private List<Pulau> pulauList;
+    private RecyclerView recyclerViewPulau;
+    private PulauAdapter pulauAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -124,13 +125,11 @@ public class home extends Fragment {
         recyclerViewPulau = view.findViewById(R.id.recyclerViewPulau);
         pulauList = new ArrayList<>();
         pulauAdapter = new PulauAdapter(pulauList);
-        recyclerViewPulau.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewPulau.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewPulau.setAdapter(pulauAdapter);
-
-
-        fetchDataFromApiPulau();
         // Panggil metode untuk mengambil data dari API
         fetchDataFromApi();
+        fetchDataFromApiPulau();
         return view;
     }
         private void openPlaceMaps(double latitude, double longitude) {
@@ -139,35 +138,56 @@ public class home extends Fragment {
         intent.putExtra("longitude", longitude);
         startActivity(intent);
     }
-    private void fetchDataFromApiPulau(){
+    private void fetchDataFromApiPulau() {
+        // Buat permintaan API menggunakan Volley atau metode lainnya
         String apiUrl = "https://api-git-main-selly-ulima-putris-projects.vercel.app/api/pulau";
+
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
                 apiUrl,
                 null,
                 response -> {
+//                    String id = null;
                     String nama = null;
                     String foto = null;
-                    Integer langitude = null;
-                    Integer longitude = null;
+                    Double latitude = null;
+                    Double longitude = null;
+                    // Proses respons JSON
                     try {
+
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject pulauJson = response.getJSONObject(i);
-                            try {
+                            try{
+
+//                                id = placeJson.getString("id");
                                 nama = pulauJson.getString("nama");
                                 foto = pulauJson.getString("foto");
-                                langitude = pulauJson.getInt("langitude");
-                                longitude = pulauJson.getInt("longitude");
-                                pulau pulau = new pulau();
+                                latitude = pulauJson.getDouble("latitude");
+                                longitude = pulauJson.getDouble("longitude");
+                                Pulau pulau= new Pulau();
+//                                place.id = Integer.parseInt(id);
                                 pulau.nama = nama;
                                 pulau.foto = foto;
-                                pulau.latitude = langitude;
+                                pulau.latitude = latitude;
                                 pulau.longitude = longitude;
                                 pulauList.add(pulau);
-                            } catch (Exception e) {
+                            }catch (Exception e) {
                                 e.printStackTrace();
                             }
+
+//                            // Parsing data JSON ke objek Place
+//                            Place place = new Place();
+//                            place.id(placeJson.getInt("id"));
+//                            place.nama(placeJson.getString("nama"));
+//                            place.setAlamat(placeJson.getString("alamat"));
+//                            place.setDeskripsi(placeJson.getString("deskripsi"));
+//                            place.setFoto(placeJson.getString("foto"));
+//
+//                            // Tambahkan Place ke daftar
+//                            placeList.add(place);
                         }
+
+                        // Pemberitahuan bahwa data telah berubah
                         pulauAdapter.notifyDataSetChanged();
 
                     } catch (JSONException e) {
@@ -175,9 +195,12 @@ public class home extends Fragment {
                     }
                 },
                 error -> {
+                    // Handle kesalahan saat mengambil data
                     Toast.makeText(getContext(), "Error fetching data", Toast.LENGTH_SHORT).show();
                 }
         );
+
+        // Tambahkan permintaan ke antrian Volley (pastikan Anda sudah menginisialisasi antrian sebelumnya)
         Volley.newRequestQueue(requireContext()).add(request);
     }
     private void fetchDataFromApi() {
