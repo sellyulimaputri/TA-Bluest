@@ -1,9 +1,6 @@
-package com.example.bluest;
-
-import static android.content.Intent.getIntent;
+package com.example.bluest.bottombar;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -15,14 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.bluest.adapter.PulauAdapter;
+import com.example.bluest.data.Place;
+import com.example.bluest.adapter.PlacesAdapter;
+import com.example.bluest.R;
+import com.example.bluest.data.pulau;
+import com.example.bluest.maps.WisataMaps;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,6 +83,9 @@ public class home extends Fragment {
 //        gradientDrawable.setColor(Color.RED);
         return gradientDrawable;
     }
+    private List<pulau> pulauList;
+    private RecyclerView recyclerViewPulau;
+    private PulauAdapter pulauAdapter;
     private List<Place> placeList;
     private RecyclerView recyclerView;
     private PlacesAdapter placesAdapter;
@@ -109,11 +112,73 @@ public class home extends Fragment {
 
         // Set layout manager dan adapter untuk RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                placesAdapter.setOnItemClickListener(new PlacesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Place place) {
+                // Panggil metode untuk membuka PlaceMaps dengan latitude dan longitude
+                openPlaceMaps(place.getLatitude(), place.getLongitude());
+            }
+        });
         recyclerView.setAdapter(placesAdapter);
 
+        recyclerViewPulau = view.findViewById(R.id.recyclerViewPulau);
+        pulauList = new ArrayList<>();
+        pulauAdapter = new PulauAdapter(pulauList);
+        recyclerViewPulau.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewPulau.setAdapter(pulauAdapter);
+
+
+        fetchDataFromApiPulau();
         // Panggil metode untuk mengambil data dari API
         fetchDataFromApi();
         return view;
+    }
+        private void openPlaceMaps(double latitude, double longitude) {
+        Intent intent = new Intent(getActivity(), WisataMaps.class);
+        intent.putExtra("latitude", latitude);
+        intent.putExtra("longitude", longitude);
+        startActivity(intent);
+    }
+    private void fetchDataFromApiPulau(){
+        String apiUrl = "https://api-git-main-selly-ulima-putris-projects.vercel.app/api/pulau";
+        JsonArrayRequest request = new JsonArrayRequest(
+                Request.Method.GET,
+                apiUrl,
+                null,
+                response -> {
+                    String nama = null;
+                    String foto = null;
+                    Integer langitude = null;
+                    Integer longitude = null;
+                    try {
+                        for (int i = 0; i < response.length(); i++) {
+                            JSONObject pulauJson = response.getJSONObject(i);
+                            try {
+                                nama = pulauJson.getString("nama");
+                                foto = pulauJson.getString("foto");
+                                langitude = pulauJson.getInt("langitude");
+                                longitude = pulauJson.getInt("longitude");
+                                pulau pulau = new pulau();
+                                pulau.nama = nama;
+                                pulau.foto = foto;
+                                pulau.latitude = langitude;
+                                pulau.longitude = longitude;
+                                pulauList.add(pulau);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        pulauAdapter.notifyDataSetChanged();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> {
+                    Toast.makeText(getContext(), "Error fetching data", Toast.LENGTH_SHORT).show();
+                }
+        );
+        Volley.newRequestQueue(requireContext()).add(request);
     }
     private void fetchDataFromApi() {
         // Buat permintaan API menggunakan Volley atau metode lainnya
@@ -129,6 +194,8 @@ public class home extends Fragment {
                     String alamat = null;
                     String deskripsi = null;
                     String foto = null;
+                    Double latitude = null;
+                    Double longitude = null;
                     // Proses respons JSON
                     try {
 
@@ -141,12 +208,16 @@ public class home extends Fragment {
                                 alamat = placeJson.getString("alamat");
                                 deskripsi = placeJson.getString("deskripsi");
                                 foto = placeJson.getString("foto");
+                                latitude = placeJson.getDouble("latitude");
+                                longitude = placeJson.getDouble("longitude");
                                 Place place= new Place();
 //                                place.id = Integer.parseInt(id);
                                 place.nama = nama;
                                 place.alamat = alamat;
                                 place.deskripsi = deskripsi;
                                 place.foto = foto;
+                                place.latitude = latitude;
+                                place.longitude = longitude;
                                 placeList.add(place);
                             }catch (Exception e) {
                                 e.printStackTrace();

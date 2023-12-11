@@ -1,4 +1,4 @@
-package com.example.bluest;
+package com.example.bluest.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

@@ -3,18 +3,16 @@ package com.example.bluest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.example.bluest.databinding.ActivityMainBinding;
+import com.example.bluest.adapter.pageAdapter;
+import com.example.bluest.bottombar.account;
+import com.example.bluest.bottombar.home;
+import com.example.bluest.bottombar.search;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 

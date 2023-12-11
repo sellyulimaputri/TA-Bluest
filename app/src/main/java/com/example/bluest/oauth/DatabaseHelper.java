@@ -1,4 +1,4 @@
-package com.example.bluest;
+package com.example.bluest.oauth;
 
 import android.content.ContentValues;
 import android.content.Context;

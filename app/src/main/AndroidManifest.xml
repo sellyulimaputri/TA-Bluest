@@ -30,16 +30,18 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCe-N9i8cIU_BkhrlXhGAzmY5SLU3xO3iw" />
+            android:value="YOUR_API_KEY" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".maps.WisataMaps"
             android:exported="false"
-            android:label="@string/title_activity_maps" >
-
-        </activity>
+            android:label="@string/title_activity_wisata_maps" />
         <activity
-            android:name=".login"
+            android:name=".maps.MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps"></activity>
+        <activity
+            android:name=".oauth.login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,17 +50,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".register"
+            android:name=".oauth.register"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" >
-
-        </activity>
-
-<!--        <meta-data-->
-<!--            android:name="preloaded_fonts"-->
-<!--            android:resource="@array/preloaded_fonts"/>-->
+            android:exported="false"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.bluest;
+package com.example.bluest.maps;
 
 import android.content.Context;
 import android.location.Address;
