@@ -1,5 +1,8 @@
 package com.example.bluest.bottombar;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +10,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.bluest.R;
+import com.example.bluest.oauth.DatabaseHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +65,36 @@ public class account extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        String loggedInUsername = "username_pengguna";
+
+        // Mengambil data pengguna dari database
+        DatabaseHelper dbHelper = new DatabaseHelper(getContext());
+        Cursor cursor = dbHelper.getUserDataByUsername(loggedInUsername);
+
+        if (cursor.moveToFirst()) {
+            // Mendapatkan data dari Cursor
+//            String username = cursor.getString(cursor.getColumnIndex("username"));
+//            String password = cursor.getString(cursor.getColumnIndex("password"));
+            int usernameColumnIndex = cursor.getColumnIndex(DatabaseHelper.COL_USERNAME);
+            int passwordColumnIndex = cursor.getColumnIndex(DatabaseHelper.COL_PASS);
+
+            // Mendapatkan data dari Cursor
+            String username = cursor.getString(usernameColumnIndex);
+            String password = cursor.getString(passwordColumnIndex);
+
+            // Menampilkan data pengguna di UI (gunakan elemen UI yang sesuai)
+            TextView usernameTextView = view.findViewById(R.id.username);
+            usernameTextView.setText("Username: ");
+            TextView pass = view.findViewById(R.id.password);
+            pass.setText("Password: " + password);
+
+            // Anda dapat menambahkan elemen UI lainnya sesuai kebutuhan
+        }
+
+        cursor.close();
+        dbHelper.close();
+        return view;
     }
 }

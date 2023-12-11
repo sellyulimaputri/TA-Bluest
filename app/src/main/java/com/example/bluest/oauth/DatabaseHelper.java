@@ -9,6 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+//    private static final String COL_USERNAME = "username";
+    public static final String COL_USERNAME = "username";
+    public static final String COL_PASS = "password";
+//    private static final String COL_PASS = "password";
     public static final String databaseName = "User.db";
     public DatabaseHelper(@Nullable Context context) {
         super(context, "User.db", null, 1);
@@ -18,7 +23,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table users(username TEXT primary key, password TEXT)");
     }
-
+    public Cursor getUserDataByUsername(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.rawQuery("SELECT * FROM users WHERE " + COL_USERNAME + "=?", new String[]{username});
+    }
+//    public Cursor getUserData(String username) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        return db.rawQuery("SELECT * FROM users WHERE " + COL_USERNAME + "=?", new String[]{username});
+//    }
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("drop table if exists users");

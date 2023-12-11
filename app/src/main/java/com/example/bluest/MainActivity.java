@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView=findViewById(R.id.navigation);
         fragmentArrayList.add(new home());
         fragmentArrayList.add(new account());
-        fragmentArrayList.add(new search());
+//        fragmentArrayList.add(new search());
         pageAdapter pageAdapter=new pageAdapter(this, fragmentArrayList);
         viewPager2.setAdapter(pageAdapter);
         viewPager2.setUserInputEnabled(false);
@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
                     case 1:
                         bottomNavigationView.setSelectedItemId(R.id.frAccount);
                         break;
-                    case 2:
-                        bottomNavigationView.setSelectedItemId(R.id.frSearch);
-                        break;
+//                    case 2:
+//                        bottomNavigationView.setSelectedItemId(R.id.frSearch);
+//                        break;
                 }
                 super.onPageSelected(position);
             }
@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.frAccount:
                         viewPager2.setCurrentItem(1);
-                        break;
-                    case  R.id.frSearch:
-                        viewPager2.setCurrentItem(2);
+//                        break;
+//                    case  R.id.frSearch:
+//                        viewPager2.setCurrentItem(2);
                 }
                 return true;
             }

@@ -55,6 +55,8 @@ public class WisataMaps extends FragmentActivity implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,5));
 
         drawPolyline(origin, location);
+
+
     }
     private void drawPolyline(LatLng origin, LatLng destination) {
         PolylineOptions polylineOptions = new PolylineOptions()
@@ -64,4 +66,5 @@ public class WisataMaps extends FragmentActivity implements OnMapReadyCallback {
 
         polyline = mMap.addPolyline(polylineOptions);
     }
+
 }

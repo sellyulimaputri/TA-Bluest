@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -22,6 +23,7 @@ import com.example.bluest.data.Place;
 import com.example.bluest.adapter.PlacesAdapter;
 import com.example.bluest.R;
 import com.example.bluest.data.Pulau;
+import com.example.bluest.maps.MapsActivity;
 import com.example.bluest.maps.WisataMaps;
 
 import org.json.JSONException;
@@ -94,13 +96,13 @@ public class home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-//        Button button = (Button) view.findViewById(R.id.bukamaps);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(getActivity(),MapsActivity.class));
-//            }
-//        });
+        Button button = (Button) view.findViewById(R.id.maps);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), MapsActivity.class));
+            }
+        });
 //        TextView nama =getActivity().findViewById(R.id.nama);
 //        LinearLayout layout =getActivity().findViewById(R.id.linear);
 //        layout.setBackground(getDrawableWithRadius());
