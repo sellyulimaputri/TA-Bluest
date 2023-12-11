@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,12 @@ public class PulauAdapter extends RecyclerView.Adapter<PulauAdapter.PulauViewHol
         Pulau pulau = pulauList.get(position);
         holder.textPulau.setText(pulau.nama);
         Picasso.get().load(pulau.foto).into(holder.imagePulau);
+        holder.cardPulau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickListener.onItemClick(pulau);
+            }
+        });
     }
 
     @Override
@@ -51,10 +58,12 @@ public class PulauAdapter extends RecyclerView.Adapter<PulauAdapter.PulauViewHol
     public class PulauViewHolder extends RecyclerView.ViewHolder {
         TextView textPulau;
         ImageView imagePulau;
+        RelativeLayout cardPulau;
         public PulauViewHolder(@NonNull View itemView) {
             super(itemView);
             textPulau = itemView.findViewById(R.id.textPulau);
             imagePulau = itemView.findViewById(R.id.imagePulau);
+            cardPulau = itemView.findViewById(R.id.cardPulau);
         }
     }
 }

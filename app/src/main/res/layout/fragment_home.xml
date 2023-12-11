@@ -52,7 +52,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewPulau"
             android:layout_width="match_parent"
-            android:layout_height="160dp" />
+            android:layout_height="150dp" />
         <!--            </LinearLayout>-->
         <!--        </HorizontalScrollView>-->
         <TextView

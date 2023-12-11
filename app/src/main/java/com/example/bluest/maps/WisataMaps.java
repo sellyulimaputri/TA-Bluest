@@ -12,10 +12,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.bluest.databinding.ActivityWisataMapsBinding;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 public class WisataMaps extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Polyline polyline;
     private ActivityWisataMapsBinding binding;
 
     @Override
@@ -46,8 +49,19 @@ public class WisataMaps extends FragmentActivity implements OnMapReadyCallback {
         double latitude = getIntent().getDoubleExtra("latitude", 0.0);
         double longitude = getIntent().getDoubleExtra("longitude", 0.0);
         // Add a marker in Sydney and move the camera
+        LatLng origin = new LatLng(-6.2088, 106.8456);
         LatLng location = new LatLng(latitude,longitude);
         mMap.addMarker(new MarkerOptions().position(location).title("Selected Place"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,5));
+
+        drawPolyline(origin, location);
+    }
+    private void drawPolyline(LatLng origin, LatLng destination) {
+        PolylineOptions polylineOptions = new PolylineOptions()
+                .add(origin, destination)
+                .width(5f)
+                .color(R.color.coklatCerah); // Anda dapat mengganti warna sesuai keinginan
+
+        polyline = mMap.addPolyline(polylineOptions);
     }
 }

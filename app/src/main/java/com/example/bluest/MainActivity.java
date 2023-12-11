@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentArrayList.add(new search());
         pageAdapter pageAdapter=new pageAdapter(this, fragmentArrayList);
         viewPager2.setAdapter(pageAdapter);
+        viewPager2.setUserInputEnabled(false);
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -62,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
                         viewPager2.setCurrentItem(0);
                         break;
                     case R.id.frAccount:
-                        viewPager2.setCurrentItem(2);
+                        viewPager2.setCurrentItem(1);
                         break;
                     case  R.id.frSearch:
-                        viewPager2.setCurrentItem(3);
+                        viewPager2.setCurrentItem(2);
                 }
                 return true;
             }

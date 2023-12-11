@@ -125,12 +125,25 @@ public class home extends Fragment {
         recyclerViewPulau = view.findViewById(R.id.recyclerViewPulau);
         pulauList = new ArrayList<>();
         pulauAdapter = new PulauAdapter(pulauList);
-        recyclerViewPulau.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewPulau.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        pulauAdapter.setOnItemClickListener(new PulauAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Pulau pulau) {
+                // Panggil metode untuk membuka PlaceMaps dengan latitude dan longitude
+                openPulauMaps(pulau.getLatitude(), pulau.getLongitude());
+            }
+        });
         recyclerViewPulau.setAdapter(pulauAdapter);
         // Panggil metode untuk mengambil data dari API
         fetchDataFromApi();
         fetchDataFromApiPulau();
         return view;
+    }
+    private void openPulauMaps(double latitude, double longitude) {
+        Intent intent = new Intent(getActivity(), WisataMaps.class);
+        intent.putExtra("latitude", latitude);
+        intent.putExtra("longitude", longitude);
+        startActivity(intent);
     }
         private void openPlaceMaps(double latitude, double longitude) {
         Intent intent = new Intent(getActivity(), WisataMaps.class);
