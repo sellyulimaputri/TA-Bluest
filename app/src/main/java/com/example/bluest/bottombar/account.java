@@ -85,10 +85,10 @@ public class account extends Fragment {
             String password = cursor.getString(passwordColumnIndex);
 
             // Menampilkan data pengguna di UI (gunakan elemen UI yang sesuai)
-            TextView usernameTextView = view.findViewById(R.id.username);
-            usernameTextView.setText("Username: ");
-            TextView pass = view.findViewById(R.id.password);
-            pass.setText("Password: " + password);
+//            TextView usernameTextView = view.findViewById(R.id.username);
+//            usernameTextView.setText("Username: ");
+//            TextView pass = view.findViewById(R.id.password);
+//            pass.setText("Password: " + password);
 
             // Anda dapat menambahkan elemen UI lainnya sesuai kebutuhan
         }
